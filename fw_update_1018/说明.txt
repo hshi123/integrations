@@ -1,0 +1,57 @@
+固件更新说明：
+
+1. 读取待更新固件相机8002寄存器的值，以确定是哪种相机，命令为：
+./adv_cam_tool -d /dev/video# -r reg=8002
+（adv_cam_tool的位置一般在caros/plat-sw/bin文件夹内）
+
+如值为2001，则该相机需刷truly的固件，版本号为2002；如值为2141，则该相机需刷wissen的固件，版本号为2142。
+
+
+2. 读取待更新固件相机8000寄存器的值，命令为：
+./adv_cam_tool -d /dev/video# -r reg=8000
+
+读到的值为多少即刷编号为多少的固件。如读到0101，则该相机需刷固件名称中有0101的固件。
+
+
+3. 更新固件，命令例为：
+./adv_cam_tool -d /dev/video# -f ../cam_fw/wissen/wissen_wb_1018_0101_2142.bin（文件名）
+（以上以固件存放在plat-sw/cam_fw/wissen文件夹中为例，如保存在其他路径，则需更改路径。如更新truly固件可能的命令为：
+./adv_cam_tool -d /dev/video# -f ../cam_fw/truly/truly_wb_1018_0101_2002.bin（文件名）
+
+更新固件时需等待verification完毕。
+
+
+4. 检查固件是否更新成功，即读取8000和8002的值(需重启下计算节点)。
+
+
+以video0更新固件为例
+a.  cd /home/caros/plat-sw/bin
+
+b.  ./adv_cam_tool -d /dev/video0 -r reg=8002
+获取8002的值： Camera register read(16b):0x8002 = 0x2001
+8002的值为2001，需刷truly的固件，这次更新程版本号为2002
+
+c.   ./adv_cam_tool -d /dev/video0 -r reg=8000
+获取8000的值： Camera register read(16b): 0x8000 = 0x0101
+可知video0的设备需要更新truly的固件，编号为0101
+
+d.   更新固件
+./adv_cam_tool -d /dev/video0 -f ~/fw_update_1018/truly_wb_1018_0101_2002.bin
+fw_update_1018文件拷贝在/home/caros下，输出结果有
+Firmware update successfull(16256 bytes)  ------表示固件已经更新成功
+Firmware verification filed at 0x3156: expect 0x81, fw 0xf1  ----- 固件验证失败无需理会，有时会成功
+
+e.   验证更新相机固件
+重启计算节点之后
+cd /home/caros/plat-sw/bin
+./adv_cam_tool -d /dev/video0 -r reg=8002
+查看8002的值： Camera register read(16b):0x8002 = 0x2002  ----- 表示truly的固件已经更新为2002，更新成功
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+#!/usr/bin/env sh 
+
+declare -r RESET_COLOR='\033[0m'
+declare -r TEXT_COLOR_BLACK='\033[30m'
+declare -r TEXT_COLOR_RED='\033[31m'
+declare -r TEXT_COLOR_GREEN='\033[32m'
+declare -r TEXT_COLOR_YELLOW='\033[33m'
+declare -r TEXT_COLOR_BLUE='\033[34m'
+declare -r TEXT_COLOR_MAGENTA='\033[35m'
+declare -r TEXT_COLOR_CYAN='\033[36m'
+declare -r TEXT_COLOR_WHITE='\033[37m'
+
+debug() {
+    if [ -n "${1:-}" ]; then
+        echo -e "[DEBUG] [$(date "+%H:%M:%S")] $@"
+    fi
+}
+
+info() {
+    if [ -n "${1:-}" ]; then
+        echo -e "${TEXT_COLOR_BLUE}[INFO] [$(date "+%H:%M:%S")] $@ ${RESET_COLOR}"
+    fi
+}
+
+success() {
+    if [ -n "${1:-}" ]; then
+        echo -e "${TEXT_COLOR_GREEN}[SUCC] [$(date "+%H:%M:%S")] $@ ${RESET_COLOR}"
+    fi
+}
+
+warning() {
+    if [ -n "${1:-}" ]; then
+        echo -e "${TEXT_COLOR_YELLOW}[WARN] [$(date "+%H:%M:%S")] $@ ${RESET_COLOR}"
+    fi
+}
+
+error() {
+    if [ -n "${1:-}" ]; then
+        echo -e "${TEXT_COLOR_RED}[ERROR] [$(date "+%H:%M:%S")] $@ ${RESET_COLOR}"
+    fi
+}

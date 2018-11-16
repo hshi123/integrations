@@ -1,0 +1,37 @@
+#!/usr/bin/expect -f
+set ipaddr "188.131.148.179"
+set passwd "caros"
+set user "ubuntu"
+set intedir "/home/caros/integration"
+set testfile "integration-integ-web.tar.gz"
+spawn scp $intedir/$testfile $user@$ipaddr:~
+expect {
+"yes/no"{send "yes\r";exp_continue}
+}
+expect "ubuntu@188.131.148.179's password:"
+set timeout 130
+send "$passwd\r"
+#等expect 出现100%然后进行下面的操作
+
+expect 100%
+expect eof ;
+
+#ssh 新开启一个spawn 登录服务器
+spawn ssh $user@$ipaddr
+expect "ubuntu@188.131.148.179's passwd:"
+send "$passwd\r"
+set timeout 3
+expect "*]#"
+
+send "tar xvf $testfile\r"
+
+send "cd /home/ubuntu/integration-integ-web/output/install\r"
+#send "nohup sudo bash run_autointeg_web.sh >myout.file 2>&1 &\r"
+send "nohup sudo bash run_autointeg_web.sh >myout.file 2>&1 &\r"
+#expect "password for ubuntu:"
+send "$passwd\r"
+expect "*]#"
+#nohup bash test.sh >myout.file 2>&1 &
+interact
+#send "exit\n"
+#expect eof

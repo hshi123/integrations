@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=check-net
+#Icon=/home/caros/Picture/112.png
+Exec=/home/caros/integration/check/check.sh
+Type=Application
+Terminal=true
+StartupNotify=false

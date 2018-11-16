@@ -1,0 +1,38 @@
+将fw_update_1018.tar.gz拷贝到计算节点/home/caros
+解压  tar zxvf fw_update_1018.tar.gz
+cd fw_update_1018
+./update-firmware.sh
+执行完毕后，手动重启计算节点 sudo reboot
+重启完成后 cd /home/caros/fw_update_1018
+./firmware-check.sh
+示例输出：
+/dev/video0 reg8002=2002
+            reg8000=0101
+Firmware truly is the latest 
+/dev/video1 reg8002=2002
+            reg8000=0102
+Firmware truly is the latest 
+/dev/video2 reg8002=2142
+            reg8000=0105
+Firmware wissen is the latest
+/dev/video3 reg8002=2142
+            reg8000=0106
+Firmware wissen is the latest
+/dev/video4 reg8002=2142
+            reg8000=0107
+Firmware wissen is the latest
+/dev/video5 reg8002=2142
+            reg8000=0108
+Firmware wissen is the latest
+/dev/video6 reg8002=2142
+            reg8000=0103
+Firmware wissen is the latest
+/dev/video7 reg8002=2002
+            reg8000=0104
+Firmware truly is the latest 
+/dev/video8 reg8002=2142
+            reg8000=0109
+Firmware wissen is the latest
+reg8002输出为2002和2142
+表明已更新固件成功
+
