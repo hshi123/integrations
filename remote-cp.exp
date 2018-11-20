@@ -2,7 +2,7 @@
 set ipaddr "188.131.148.179"
 set passwd "caros"
 set user "ubuntu"
-set intedir "/home/caros/integration"
+set intedir "/home/caros/integrations"
 set testfile "integration-integ-web.tar.gz"
 spawn scp $intedir/$testfile $user@$ipaddr:~
 expect {
@@ -15,6 +15,17 @@ send "$passwd\r"
 
 expect 100%
 expect eof ;
+
+
+spawn scp $intedir/80-check.sh $user@$ipaddr:~
+expect "ubuntu@188.131.148.179's password:"
+send "$passwd\r"
+expect 100%
+expect eof ;
+
+
+
+
 
 #ssh 新开启一个spawn 登录服务器
 spawn ssh $user@$ipaddr

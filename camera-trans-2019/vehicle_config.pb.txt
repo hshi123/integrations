@@ -1,0 +1,36 @@
+# LINCOLN_MKZ, HONGQI_EV, HONGQI_H7PHEV, BYD_QIN, DAIMLER_V_CLASS, BEIQI_EU260
+# QIRUI_EQ, CHANGAN_RUICHENG, LINCOLN_MKZ_HIGHWAY, LINCOLN_MKZ_USA, FORD_AVP, VOLVO_XC60
+vehicle_brand: LINCOLN_MKZ
+vehicle_id: "MKZ217"
+vehicle_vin: ""
+
+front_edge_to_center: 2.465
+back_edge_to_center: 2.465
+left_edge_to_center: 1.055
+right_edge_to_center: 1.055
+front_axle_to_center: 1.425
+rear_axle_to_center: 1.425
+
+mass: 2080
+wheel_base: 2.85
+length: 4.93
+width: 2.11
+height: 1.48
+
+max_steer_angle: 470
+max_steer_angle_rate: 500
+steer_ratio: 16
+min_turn_radius: 5.06
+
+max_acceleration: 5.0
+max_deceleration: -5.0
+max_wheel_torque: 0.0
+min_wheel_torque: 0.0
+
+tire_cf: 155494.663
+tire_cr: 155494.663
+
+wheel_rolling_radius: 0.2164
+wheel_inertia: 0.0
+air_drag_coeff: 0.348
+rolling_resistance: 0.01
