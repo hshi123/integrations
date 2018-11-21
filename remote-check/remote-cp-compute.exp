@@ -5,7 +5,7 @@
 set ipaddr "192.168.10.6"
 set passwd "caros"
 set user "caros"
-set intedir "/home/caros/integrations"
+set intedir "/home/caros/Desktop"
 set testfile "integration-integ-web.tar.gz"
 spawn scp $intedir/$testfile $user@$ipaddr:~
 #set timeout 10
@@ -20,7 +20,7 @@ expect 100%
 expect eof ;
 
 #拷贝80端口检查脚本到计算节点
-spawn scp $intedir/80-check.sh $user@$ipaddr:~
+spawn scp $intedir/8080-check.sh $user@$ipaddr:~
 expect "caros@192.168.10.6's password:"
 send "$passwd\r"
 expect 100%
@@ -35,7 +35,7 @@ expect "caros@192.168.10.6's passwd:"
 set timeout 3
 send "$passwd\r"
 expect "*]#"
-send "bash /home/caros/80-check.sh"
+send "bash /home/caros/8080-check.sh"
 send "tar xvf $testfile\r"
 
 send "cd /home/caros/integration-integ-web/output/install\r"
