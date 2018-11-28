@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=remote-cp-compute
-#Icon=/home/caros/Picture/112.png
-Exec=/home/caros/Desktop/remote-check/remote-cp-compute.exp
-Type=Application
-Terminal=true
-StartupNotify=false

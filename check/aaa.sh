@@ -8,3 +8,9 @@ echo -e '\033[31m新浪网络is not ok \033[0m'
 
 ls; read
 " 
+
+
+if [ ping www.baidu.com ] && [ ping www.sohu.com ] && [ ping www.sina.com ]
+then 
+    echo "ok"
+fi
