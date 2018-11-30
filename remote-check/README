@@ -1,9 +1,0 @@
-此桌面启动器是在Ubuntu14.04下调试使用
-sudo cp -p remote-cp-compute.desktop /usr/share/applications
-sudo cp -p check-net.desktop /usr/share/applications
-需要更改下这两个.desktop文件中的Exec选项
-修改为remote-cp-compute.exp,check.sh文件的绝对路径
-之后在桌面右上角上搜索remote-cp-compute和check-net,在applications栏找到remote-cp-compute和check-net之后，
-将其拖到桌面，以后可以一键点击执行脚本。
-
-

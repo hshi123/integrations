@@ -48,12 +48,6 @@ remote-cp-compute(){
 EOF
 }
 
-ping-compute(){
-
-
-
-}
-
 check-internet(){
     echo 'Please wait a moment!'
     num=100
