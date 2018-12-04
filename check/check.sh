@@ -1,6 +1,4 @@
 #!/bin/bash
-#author v_shihui01@baidu.com
-#Tel:16619803190
 
 routerIP="192.168.10.1"
 computeIP="192.168.10.6"
@@ -14,7 +12,7 @@ otaIP="180.149.145.158"
 ipaddr="192.168.10.6"
 passwd="caros"
 user="caros"
-intedir="/home/caros/Desktop"
+intedir=$(cd `dirname $0`; pwd)
 testfile="integration-integ-web.tar.gz"
 
 remote-cp-compute(){
@@ -36,18 +34,20 @@ remote-cp-compute(){
     expect 100%
     expect eof ;
     
-    spawn ssh $user@${computeIP}
-    expect "caros@192.168.10.6's passwd:"
+    spawn ssh -X $user@${computeIP}
+    expect "caros@192.168.10.6's password:"
     set timeout 3
     send "$passwd\r"
-    expect '*]#'
-    send "bash /home/caros/8080-check.sh"
+    expect "*]#"
+    send "bash /home/caros/8080-check.sh\r"
     send "tar xvf $testfile\r"
     send "cd /home/caros/integration-integ-web/output/install\r"
     send "nohup bash run_autointeg_web.sh 2>&1 \r"
-    interact
+    expect "*]#"
+    expect eof ;    
 EOF
 }
+#interact
 
 check-internet(){
     echo 'Please wait a moment!'
@@ -55,8 +55,8 @@ check-internet(){
     ping -c $num $otaIP > usenet.txt
     usenet=`cat usenet.txt |grep 'packet loss' | awk -F "," '{print $3}' | awk -F " " '{print $1}' | awk -F "%" '{print $1}'`
     delaynet=`cat usenet.txt | grep 'min/avg/max/mdev'`
-    echo '网络丢包率(%): $usenet'
-    echo '网络延迟: $delaynet'
+    echo "网络丢包率(%): ${usenet}"
+    echo "网络延迟: ${delaynet}"
     if [ $usenet -le 10 ]
     then
         echo 'The Internet is stable!!'
@@ -82,9 +82,11 @@ then
         check-internet
         if [ $? -eq 0 ]
         then
-        firefox 192.168.10.6:8080
+ #       firefox 192.168.10.6:8080
+        google-chrome 192.168.10.6:8080
         else
             echo -e '\033[31m执行check-internet时发生未知错误\033[0m'
+        fi
     else
         echo -e '\033[31m 不能连接到外网，请检查是否插入sim卡 \033[0m'
     fi
@@ -103,8 +105,8 @@ else
 #    read
 #    "    
 fi
-echo "20s后会关闭"
-sleep 20
+
+read -p "输入回车关闭当前终端："
 
 
 
