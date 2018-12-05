@@ -11,11 +11,20 @@ echo $mima | sudo -S echo " " &> /dev/null
 pid=$(sudo netstat -nlp | grep :$port | awk '{print $7}' | awk -F"/" '{ print $1 }');
 
 #杀掉对应的进程
-if [  -n  "$pid"  ]
+#if [  -n  "$pid"  ]
+#then
+#    kill  -9  $pid
+#    echo "port 8080  is using,now has been closed"
+#else
+#    echo "port 8080 is not using"
+#
+#    fi
+
+if [ -n "$pid" ]
 then
-    kill  -9  $pid
-    echo "port 80  is using,now has been closed"
+    sudo kill $(sudo lsof -t -i:8080)
+    echo "port 8080  is using,now has been closed"
 else
-    echo "port 80 is not using"
+    echo "port 8080 is not using"
 
     fi

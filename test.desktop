@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=check
+Name=test
 #Icon=/home/caros/Picture/112.png
-Exec=/home/caros/integrations/remote-check/check.sh
+Exec=/home/caros/integrations/test.sh
 Type=Application
 Terminal=true
 StartupNotify=false

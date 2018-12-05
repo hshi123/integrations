@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+set ipaddr "192.168.10.6"
+set passwd "caros"
+set user "caros"
+spawn ssh -X $user@$ipaddr
+expect "caros@192.168.10.6's passwd:"
+send "$passwd\r"
+set timeout 3
+
+
+interact

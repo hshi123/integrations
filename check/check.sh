@@ -12,7 +12,7 @@ otaIP="180.149.145.158"
 ipaddr="192.168.10.6"
 passwd="caros"
 user="caros"
-intedir=$(cd `dirname $0`; pwd)
+intedir=$(cd `dirname $0`; cd ..; pwd)
 testfile="integration-integ-web.tar.gz"
 
 remote-cp-compute(){
@@ -24,7 +24,6 @@ remote-cp-compute(){
     expect "caros@192.168.10.6's password:"
     send "$passwd\r"
      
-    set timeout 300
     expect 100%
     expect eof ;
                     
@@ -36,22 +35,20 @@ remote-cp-compute(){
     
     spawn ssh -X $user@${computeIP}
     expect "caros@192.168.10.6's password:"
-    set timeout 3
     send "$passwd\r"
-    expect "*]#"
+    expect "caros@computing:~$" 
     send "bash /home/caros/8080-check.sh\r"
     send "tar xvf $testfile\r"
     send "cd /home/caros/integration-integ-web/output/install\r"
-    send "nohup bash run_autointeg_web.sh 2>&1 \r"
-    expect "*]#"
-    expect eof ;    
+    send "nohup bash run_autointeg_web.sh &\r"
+    expect "caros@computing:~$" 
+    expect eof ;
 EOF
 }
-#interact
 
 check-internet(){
     echo 'Please wait a moment!'
-    num=100
+    num=10
     ping -c $num $otaIP > usenet.txt
     usenet=`cat usenet.txt |grep 'packet loss' | awk -F "," '{print $3}' | awk -F " " '{print $1}' | awk -F "%" '{print $1}'`
     delaynet=`cat usenet.txt | grep 'min/avg/max/mdev'`
@@ -82,8 +79,9 @@ then
         check-internet
         if [ $? -eq 0 ]
         then
- #       firefox 192.168.10.6:8080
-        google-chrome 192.168.10.6:8080
+#            firefox 192.168.10.6:8080
+            nohup google-chrome 192.168.10.6:8080 &
+            expect ssh-compute.exp
         else
             echo -e '\033[31m执行check-internet时发生未知错误\033[0m'
         fi
@@ -106,7 +104,7 @@ else
 #    "    
 fi
 
-read -p "输入回车关闭当前终端："
+#read -p "输入回车关闭当前终端："
 
 
 
