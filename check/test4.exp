@@ -1,0 +1,7 @@
+#!/usr/bin/expect
+spawn ssh  ubuntu@188.131.148.179
+expect "ubuntu@188.131.148.179's password:"
+send "caros\r"
+set timeout 3
+interact
+

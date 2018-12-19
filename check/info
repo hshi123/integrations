@@ -1,0 +1,3 @@
+spawn ssh ubuntu@188.131.148.179 date +%s
+ubuntu@188.131.148.179's password: 
+1545209509

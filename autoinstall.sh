@@ -23,7 +23,7 @@ echo $password | sudo -S echo " " &> /dev/null
 
 dir_path=$(cd `dirname $0`; pwd )
 echo $dir_path
-tar xvf $dir_path/remote-check.tar.gz
+tar zxvf $dir_path/remote-check.tar.gz
 check_name=$dir_path/remote-check/check.sh
 sed -i "s#^Exec=.*#Exec=${check_name}#g" ${dir_path}/remote-check/check.desktop
 cd $dir_path/remote-check

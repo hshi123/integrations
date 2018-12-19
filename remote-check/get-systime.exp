@@ -1,0 +1,6 @@
+#!/usr/bin/expect
+#获取当前系统时间的unix时间戳
+spawn ssh caros@192.168.10.6 "date +%s"
+expect "caros@192.168.10.6's password:"
+send "caros\r"
+expect eof ;

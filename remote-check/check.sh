@@ -15,6 +15,33 @@ user="caros"
 intedir=$(cd `dirname $0`; cd ..; pwd)
 testfile="integration-integ-web.tar.gz"
 
+#获取计算节点的unix时间戳和integration-integ-web.tar.gz文件的时间戳
+expect get-inttime.exp >get-inttime.txt
+expect get-systime.exp >get-systime.txt
+inttime=`cat get-inttime | grep '^[0-9]'`
+systime=`cat get-systime | grep '^[0-9]'`
+twelvehours=43200
+timeinterval=$[($systime-$inttime)/$twelvehours]
+
+#不进行拷贝只执行脚本
+bash-run(){
+    /usr/bin/expect <<-EOF
+    spawn ssh -X $user@${computeIP}
+    expect "caros@192.168.10.6's password:"
+    send "$passwd\r"
+    expect "caros@computing:~$" 
+    send "bash /home/caros/8080-check.sh\r"
+    send "cd /home/caros/integration-integ-web/output/install\r"
+    send "nohup bash run_autointeg_web.sh &\r"
+    expect "caros@computing:~$" 
+    expect eof ;
+EOF
+}
+
+
+
+
+#拷贝文件
 remote-cp-compute(){
     /usr/bin/expect <<-EOF
     spawn scp ${intedir}/${testfile} ${user}@${computeIP}:~
@@ -57,7 +84,12 @@ check-internet(){
     if [ $usenet -le 10 ]
     then
         echo 'The Internet is stable!!'
-        remote-cp-compute
+        if [ $timeinterval -ge 1 ]
+        then  
+            remote-cp-compute
+        else
+            bash-run
+        fi
     else
         echo -e '\033[31m 与ota服务器通信不稳定 \033[0m'
 fi
@@ -80,12 +112,12 @@ then
         if [ $? -eq 0 ]
         then
 #            firefox 192.168.10.6:8080
-            google-chrome 192.168.10.6:8080 
             gnome-terminal -x bash -c "
                 cd $intedir/remote-check
                 expect ssh-compute.exp
                 read
                 "
+            google-chrome 192.168.10.6:8080 
         else
             echo -e '\033[31m执行check-internet时发生未知错误\033[0m'
         fi
@@ -109,20 +141,6 @@ else
 fi
 
 read -p "输入回车关闭当前终端："
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #disksize=`df -h /home | awk -F " " '{print $2}' | grep "G"`
 #diskavail=`df -h /home | awk -F " " '{print $4}' | grep "G"`
