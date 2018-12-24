@@ -16,10 +16,10 @@ intedir=$(cd `dirname $0`; cd ..; pwd)
 testfile="integration-integ-web.tar.gz"
 
 #获取计算节点的unix时间戳和integration-integ-web.tar.gz文件的时间戳
-expect get-inttime.exp >get-inttime.txt
-expect get-systime.exp >get-systime.txt
-inttime=`cat get-inttime | grep '^[0-9]'`
-systime=`cat get-systime | grep '^[0-9]'`
+expect $intedir/remote-check/get-inttime.exp >get-inttime.txt
+expect $intedir/remote-check/get-systime.exp >get-systime.txt
+inttime=`cat get-inttime.txt | grep '^[0-9]'`
+systime=`cat get-systime.txt | grep '^[0-9]'`
 twelvehours=43200
 timeinterval=$[($systime-$inttime)/$twelvehours]
 

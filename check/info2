@@ -1,3 +1,0 @@
-spawn ssh ubuntu@188.131.148.179 stat -c %Y /home/ubuntu/MotorDriver.tar.gz
-ubuntu@188.131.148.179's password: 
-1542974459
