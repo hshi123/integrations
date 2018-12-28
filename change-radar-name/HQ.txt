@@ -1,0 +1,9 @@
+/home/caros/Desktop/baidu/adu/params/HQ104
+/home/caros/Desktop/baidu/adu/params/HQ105
+/home/caros/Desktop/baidu/adu/params/HQ179
+/home/caros/Desktop/baidu/adu/params/HQ180
+/home/caros/Desktop/baidu/adu/params/HQ181
+/home/caros/Desktop/baidu/adu/params/HQ182
+/home/caros/Desktop/baidu/adu/params/HQ183
+/home/caros/Desktop/baidu/adu/params/HQ184
+/home/caros/Desktop/baidu/adu/params/HQ201
