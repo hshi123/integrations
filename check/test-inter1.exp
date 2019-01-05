@@ -1,0 +1,6 @@
+#!/usr/bin/expect
+spawn ssh  ubuntu@188.131.148.179 "ls /home/ubuntu/8080-check.sh"
+expect "ubuntu@188.131.148.179's password:"
+send "caros\r"
+set timeout 3
+expect eof;

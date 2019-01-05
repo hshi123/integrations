@@ -1,0 +1,6 @@
+#!/usr/bin/expect
+#获取intergration-integ-web.tar.gz的unix时间戳
+spawn ssh caros@192.168.10.6 "ls /home/caros/intergration-integ-web.tar.gz"
+expect "caros@192.168.10.6's password:"
+send "caros\r"
+expect eof ;

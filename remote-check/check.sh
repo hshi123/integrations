@@ -15,13 +15,6 @@ user="caros"
 intedir=$(cd `dirname $0`; cd ..; pwd)
 testfile="integration-integ-web.tar.gz"
 
-#获取计算节点的unix时间戳和integration-integ-web.tar.gz文件的时间戳
-expect $intedir/remote-check/get-inttime.exp >get-inttime.txt
-expect $intedir/remote-check/get-systime.exp >get-systime.txt
-inttime=`cat get-inttime.txt | grep '^[0-9]'`
-systime=`cat get-systime.txt | grep '^[0-9]'`
-twelvehours=43200
-timeinterval=$[($systime-$inttime)/$twelvehours]
 
 #不进行拷贝只执行脚本
 bash-run(){
@@ -37,8 +30,6 @@ bash-run(){
     expect eof ;
 EOF
 }
-
-
 
 
 #拷贝文件
@@ -84,11 +75,25 @@ check-internet(){
     if [ $usenet -le 10 ]
     then
         echo 'The Internet is stable!!'
-        if [ $timeinterval -ge 1 ]
-        then  
+        #获取计算节点的unix时间戳和integration-integ-web.tar.gz文件的时间戳
+        expect $intedir/remote-check/check-interfile.exp >$intedir/remote-check/check-interfile.txt
+        cat $interdir/remote-check/check-interfile.txt |grep "such file or dicetory"
+        if [ $? -eq 0 ]
+        then
             remote-cp-compute
         else
-            bash-run
+            expect $intedir/remote-check/get-inttime.exp >$intedir/remote-check/get-inttime.txt
+            expect $intedir/remote-check/get-systime.exp >$intedir/remote-check/get-systime.txt
+            inttime=`cat get-inttime.txt | grep '^[0-9]'`
+            systime=`cat get-systime.txt | grep '^[0-9]'`
+            twelvehours=43200
+            timeinterval=$[($systime-$inttime)/$twelvehours]
+            if [ $timeinterval -ge 1 ]
+            then  
+                remote-cp-compute
+            else
+                bash-run
+            fi
         fi
     else
         echo -e '\033[31m 与ota服务器通信不稳定 \033[0m'
@@ -140,7 +145,7 @@ else
 #    "    
 fi
 
-read -p "输入回车关闭当前终端："
+read -p "输入回车关闭当前终端:"
 
 #disksize=`df -h /home | awk -F " " '{print $2}' | grep "G"`
 #diskavail=`df -h /home | awk -F " " '{print $4}' | grep "G"`
