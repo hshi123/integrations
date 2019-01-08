@@ -82,6 +82,7 @@ check-internet(){
         then
             remote-cp-compute
         else
+            cd $intedir/remote-check
             expect $intedir/remote-check/get-inttime.exp >$intedir/remote-check/get-inttime.txt
             expect $intedir/remote-check/get-systime.exp >$intedir/remote-check/get-systime.txt
             inttime=`cat get-inttime.txt | grep '^[0-9]'`

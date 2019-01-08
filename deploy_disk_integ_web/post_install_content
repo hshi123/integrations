@@ -1,0 +1,11 @@
+
+
+rsync -a /sdb1/integration-integ-web /sda1/home/caros/
+cat <<EOF >> /sda1/etc/rc.local
+if [ ! -e "/home/caros/integration-integ-web/output/install/installed_integration-integ-web" ]; then
+    cd /home/caros/integration-integ-web/output/install/
+    bash install_Django.sh; touch installed_integration-integ-web
+fi
+bash run_autointeg_web.sh &
+EOF
+
