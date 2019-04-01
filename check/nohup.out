@@ -1,0 +1,24 @@
+invalid command name "nohup"
+    while executing
+"nohup spawn ssh  ubuntu@188.131.148.179 "ls /home/ubuntu/a8080-check.sh""
+    (file "test-inter.exp" line 2)
+invalid command name "nohup"
+    while executing
+"nohup spawn ssh  ubuntu@188.131.148.179 "ls /home/ubuntu/a8080-check.sh""
+    (file "test-inter.exp" line 2)
+invalid command name "nohup"
+    while executing
+"nohup spawn ssh  ubuntu@188.131.148.179 "ls /home/ubuntu/a8080-check.sh""
+    (file "test-inter.exp" line 2)
+spawn ssh ubuntu@188.131.148.179 ls /home/ubuntu/8080-check.sh
+ubuntu@188.131.148.179's password: 
+/home/ubuntu/8080-check.sh
+spawn ssh ubuntu@188.131.148.179 ls /home/ubuntu/8080-check.sh
+ubuntu@188.131.148.179's password: 
+/home/ubuntu/8080-check.sh
+spawn ssh ubuntu@188.131.148.179 ls /home/ubuntu/8080-check.sh
+ubuntu@188.131.148.179's password: 
+/home/ubuntu/8080-check.sh
+spawn ssh ubuntu@188.131.148.179 ls /home/ubuntu/8080-check.sh
+ubuntu@188.131.148.179's password: 
+/home/ubuntu/8080-check.sh

@@ -1,0 +1,10 @@
+/sensor/novatel/CorrImu
+/sensor/novatel/Heading
+/sensor/novatel/Imu
+/sensor/novatel/Odometry
+/sensor/novatel/bestgnsspos
+/sensor/novatel/bestpos
+/sensor/novatel/bestxyz
+/sensor/novatel/corrimudata
+/sensor/novatel/inspva
+/sensor/novatel/rawimu

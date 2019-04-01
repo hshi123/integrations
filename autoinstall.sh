@@ -23,20 +23,20 @@ echo $password | sudo -S echo " " &> /dev/null
 
 dir_path=$(cd `dirname $0`; pwd )
 echo $dir_path
-tar zxvf $dir_path/remote-check.tar.gz
+#tar zxvf $dir_path/remote-check.tar.gz
 check_name=$dir_path/remote-check/check.sh
 sed -i "s#^Exec=.*#Exec=${check_name}#g" ${dir_path}/remote-check/check.desktop
 cd $dir_path/remote-check
 cp check.desktop $dir_path/
+chmod 777 $dir_path/check.desktop
+chmod 777 $dir_path/remote-check/check.sh
 echo "桌面会有check的图标，点击这个图标！"
 
 #update & install expect
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.old
 cd $dir_path
-sudo cp -p sources-list/163.sources.list /etc/apt/sources.list
+sudo cp -p sources-list-14.04/163.sources.list /etc/apt/sources.list
 sudo chown root:root /etc/apt/sources.list
 sudo chmod 664 /etc/apt/sources.list
-sudo apt-get update
-sudo apt-get install -f expect
-
-
+sudo apt-get update  >/dev/null 2>&1
+sudo apt-get install -f expect >/dev/null 2>&1

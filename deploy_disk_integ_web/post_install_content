@@ -3,9 +3,12 @@
 
 rsync -a /mnt_iso/integration-integ-web /mnt_root/home/caros/
 cat <<EOF >> /mnt_root/etc/rc.local
-if [ ! -e "/home/caros/integration-integ-web/output/install/installed_integration-integ-web" ]; then
-    cd /home/caros/integration-integ-web/output/install/
-    bash install_Django.sh; touch installed_integration-integ-web
+chown -R caros:caros /home/caros/integration-integ-web > /dev/null 2>1&
+if [  -e "/home/caros/integration-integ-web/src/install" ]; then
+    cd /home/caros/integration-integ-web/src/install/
+    /bin/bash -c "su caros -c \"[ -f /home/caros/cybertron/setup.bash ] &&
+source /home/caros/cybertron/setup.bash > /dev/null 2>&1; /bin/bash run_autointeg_web.sh &\""
+su - caros -c "otaclient -i /home/caros/integration-integ-web/src/install/integration-integ/package/calibration-onboard-2.1.4.1.apm"
 fi
-bash run_autointeg_web.sh &
 EOF
+

@@ -1,0 +1,70 @@
+#!/bin/sh
+#
+# rc.local
+#
+
+# reload kernel mod
+depmod -a
+
+# start carp partition
+if [ -f /home/caros/cybertron/bin/carp_partition.sh ]; then
+  /home/caros/cybertron/bin/carp_partition.sh start &
+elif [ -f /usr/local/monitor/carp-partition.sh ]; then
+  /usr/local/monitor/carp-partition.sh start &
+fi
+
+# change the rx/tx ring setting for eth
+/sbin/ethtool -G eth0 rx 4096
+/sbin/ethtool -G eth1 rx 4096
+
+# close swap
+swapoff -a
+
+# disable console printk
+echo 0 > /proc/sys/kernel/printk
+
+# alter io scheduler policy
+if [ -f /sys/block/nvme0n1/queue/scheduler ]; then
+echo noop > /sys/block/nvme0n1/queue/scheduler
+else
+echo noop > /sys/block/sda/queue/scheduler
+fi
+
+# alter dirty rate
+sysctl vm.dirty_background_ratio=30 >/dev/null
+sysctl vm.dirty_ratio=50 >/dev/null
+
+# add route for hw30 lite
+route add -net 224.100.100.0 netmask 255.255.255.0 eth1
+
+# secure service for otaclient
+if [ -f /home/caros/secure/secure_service.sh ]; then
+  if [ ! -d /home/caros/bdkeystore ];then
+    /home/caros/secure/secure_service.sh deploy || true
+  fi
+  /home/caros/secure/secure_service.sh start || true
+fi
+
+# upstart all modules
+DATE_STR=$(date '+%Y%m%d_%H%M%S')
+if [ "$(hostname)" = "computing" ]; then
+  START_SCRIPT=/home/caros/cybertron/bin/start_all_computer.bash
+  LOG_FILE=/var/log/caros/upstart_all_computer_${DATE_STR}.txt
+else
+  START_SCRIPT=/home/caros/cybertron/bin/start_all_control.bash
+  LOG_FILE=/var/log/caros/upstart_all_control_${DATE_STR}.txt
+fi
+
+/bin/bash -c "ulimit -HSc unlimited && ulimit -HSe 40 && ulimit -HSr 99 && ulimit -a && \
+su caros -c \"ulimit -HSc unlimited && ulimit -HSe 40 && ulimit -HSr 99 && ulimit -a && \
+bash -x $START_SCRIPT\"" > $LOG_FILE 2>&1 &
+
+# start ota client
+if [ -f /home/caros/otaclient/bin/otaclient ]; then
+/bin/bash -c "su caros -c \"/home/caros/otaclient/bin/otaclient --local\""
+fi
+
+# start hw program
+if [ -f /home/caros/plat-release/init/init.sh ]; then
+/bin/bash -c "cd /home/caros/plat-release/init && source ./init.sh" &
+fi

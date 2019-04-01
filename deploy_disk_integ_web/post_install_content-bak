@@ -1,0 +1,11 @@
+
+
+
+rsync -a /mnt_iso/integration-integ-web /mnt_root/home/caros/
+cat <<EOF >> /mnt_root/etc/rc.local
+if [ ! -e "/home/caros/integration-integ-web/src/install/installed_integration-integ-web" ]; then
+    cd /home/caros/integration-integ-web/src/install/
+    bash install_Django.sh; touch installed_integration-integ-web
+fi
+bash run_autointeg_web.sh &
+EOF

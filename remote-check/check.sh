@@ -56,7 +56,7 @@ remote-cp-compute(){
     send "$passwd\r"
     expect "caros@computing:~$" 
     send "bash /home/caros/8080-check.sh\r"
-    send "tar xvf $testfile\r"
+    send "tar xf $testfile\r"
     send "cd /home/caros/integration-integ-web/output/install\r"
     send "nohup bash run_autointeg_web.sh &\r"
     expect "caros@computing:~$" 
