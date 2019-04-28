@@ -96,3 +96,38 @@ set softtabstop=4
 nnoremap <buffer> H :<C-u>execute "!pydoc3 " . expand("<cword>")<CR>
 
 
+"Python 注释
+function InsertPythonComment()
+    exe 'normal'.1.'G'
+    let line = getline('.')
+    if line =~ '^#!.*$' || line =~ '^#.*coding:.*$'
+        return
+    endif
+    normal O
+    call setline('.', '#!/usr/bin/env python')
+    normal o
+    call setline('.', '# -*- coding:utf-8 -*-')
+    normal o
+    call setline('.', '#')
+    normal o
+    call setline('.', '#   Author  :   '.g:python_author)
+    normal o
+    call setline('.', '#   E-mail  :   '.g:python_email)
+    normal o
+    call setline('.', '#   Date    :   '.strftime("%y/%m/%d %H:%M:%S"))
+    normal o
+    call setline('.', '#   Desc    :   ')
+    normal o
+"    call setline('.', '#')
+ "   normal o
+    call cursor(7, 17)
+endfunction
+function InsertCommentWhenOpen()
+    if a:lastline == 1 && !getline('.')
+        call InsertPythonComment()
+    end
+endfunc
+au FileType python :%call InsertCommentWhenOpen()
+au FileType python map <F4> :call InsertPythonComment()<cr>
+let g:python_author = 'hshi'  
+let g:python_email  = 'snapwings3190@163.com'
