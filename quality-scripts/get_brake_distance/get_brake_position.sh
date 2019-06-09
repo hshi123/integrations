@@ -9,6 +9,22 @@ OBSTACLES_FILE=obstacles1
 OBSTACLES_FILE2=obstacles2
 OBSTACLES_POSITION=obstacles_position
 OBSTACLES_POSITION1=obstacles_position1
+cyber_channel echo /pnc/carstatus > ${SCRIPT_ROOT}/carstatus &
+pid1=$!
+cyber_channel echo /perception/obstacles > ${SCRIPT_ROOT}/obstacles-static &
+pid2=$!
+if [ ! -s carstatus ]
+then
+    echo "请检查/pnc/carstatus是否有输出"
+    exit 3
+fi
+if [ ! -s obstacles-static ]
+then
+    echo "请检查/erception/obstacles是否有输出"
+    exit 3
+fi
+sleep 60
+kill -TERM $pid1 && kill -TERM $pid2
 cp carstatus carstatus1
 cp obstacles obstacles1
 sed -i '/pose {/,+27d' ${CARSTATUS_FILE}

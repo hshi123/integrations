@@ -11,6 +11,7 @@ kill -TERM $pid
 if [ ! -s ${LOCALIZATION_POSE} ]
 then
     echo "请检查/localization/100hz/localization_pose是否有输出"
+    exit 3
 fi
 grep -A 4 "position {" ${LOCALIZATION_POSE} >${POSITION}
 sed -i '/--/d' ${POSITION}

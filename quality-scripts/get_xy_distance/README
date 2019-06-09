@@ -1,0 +1,6 @@
+先获取/perception/obstacles,/localization/100hz/localization_pose
+60s后自动停止获取信息，
+对数据进行筛选分析计算60s内的两车键的横向与纵向距离并输出到get_pose_obstacles.sh.log
+ bash get_pose_obstacles.sh status 查看脚本运行状态
+ bash get_pose_obstacles.sh stop  停止脚本
+

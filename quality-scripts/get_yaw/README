@@ -1,0 +1,5 @@
+先获取/pnc/carstatus
+180s后自动停止获取信息，
+对数据进行筛选分析计算当前事件段内的平均yaw角度并输出到get_yaw.sh.log
+ bash get_yaw.sh status 查看脚本运行状态
+ bash get_yaw.sh stop  停止脚本

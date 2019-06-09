@@ -2,13 +2,14 @@
 SCRIPT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 function get_velocity() {
 cyber_channel echo /perception/obstacles > ${SCRIPT_ROOT}/obstacles &
-OBTACLES=obstacles
 pid=$!
+OBTACLES=obstacles
 sleep 10
 kill -TERM $pid
 if [ ! -s ${OBTACLES} ]
 then
     echo "请检查/perception/obstacles是否有输出"
+    exit 3
 fi
 cp obstacles obstacles1
 sed -i '/polygon_point/,+4d' obstacles1
