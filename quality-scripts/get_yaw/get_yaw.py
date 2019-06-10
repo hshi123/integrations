@@ -8,8 +8,8 @@
 
 
 import numpy as np
-import time
-time.sleep(50)
+#import time
+#time.sleep(50)
 a = np.loadtxt('yaw')
 #a = np.loadtxt('test_yaw')
 l = []
@@ -18,9 +18,9 @@ num = len(a)
 for i in range(len(a)):
     vec = abs(np.array(a[i]))
     myarray = np.append(myarray,vec)
-print '最大yaw:',myarray.max()
+#print '最大yaw:',myarray.max()
 print '平均yaw:',myarray.mean()
-
+print "\nSUCCESSED"
 
 
 

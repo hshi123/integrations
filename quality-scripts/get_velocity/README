@@ -1,6 +1,2 @@
-bash get_velocity.sh start
-先获取/perception/obstacles
+车辆速度识别，/perception/obstacles确保测试车附近只有一辆车，
 10s后自动停止获取信息，
-对数据进行筛选分析计算10s内的车的平均素速度并输出到get_velocity.sh.log
- bash get_velocity.sh status 查看脚本运行状态
- bash get_velocity.sh stop  停止脚本

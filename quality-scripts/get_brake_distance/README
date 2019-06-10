@@ -1,5 +1,0 @@
- bash get_brake_position.sh start
-echo /pnc/carstatus 和/perception/obstacles 1分钟数据，并结束进程，
-对数据进行处理开始刹车距离并输出到get_brake_position.sh.log
- bash get_brake_position.sh status 查看脚本运行状态
- bash get_brake_position.sh stop  停止脚本

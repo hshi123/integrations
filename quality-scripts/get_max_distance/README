@@ -1,6 +1,2 @@
-  bash get_position.sh start
-先获取/localization/100hz/localization_pose
-3分钟后自动停止获取信息，
-对数据进行筛选分析计算静态定位检测最大半径并输出到get_position.sh.log
- bash get_position.sh status 查看脚本运行状态
- bash get_position.sh stop  停止脚本
+静态定位检测最大波动半径：/localization/100hz/localization_pose
+获取3分钟下的世界坐标系的点，计算距离

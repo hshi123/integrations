@@ -19,5 +19,6 @@ for i in range(num):
 aver_velo_arr = np.array(l)
 aver_velo = np.mean(aver_velo_arr,0)*multiple
 print '测试车的速度(km/h):','%.3f' % aver_velo
+print '\nSUCCESSED'
 #print "障碍车最大速度(km/h):",max(l)*multiple
 #print "障碍车最小速度(km/h):",min(l)*multiple

@@ -33,6 +33,7 @@ while i < num-1:
 #print(l)
 R = max(l)*100/2
 print '最大波动半径R(cm):',R
+print "\nSUCCESSED"
 #def bubble_sort(alist):
 #    n = len(alist)
 #    for j in range(n-1):

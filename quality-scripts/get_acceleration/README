@@ -1,4 +1,1 @@
-3.  bash get_acceleration.sh start
-echo /pnc/carstatus并停止进程，对数据进行处理最大加速度并输出到get_acceleration.sh.log
- bash get_acceleration.sh status 查看脚本运行状态
- bash get_acceleration.sh stop  停止脚本
+刹车中最大减速度需要channel: /pnc/carstatus字段acc:

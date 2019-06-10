@@ -22,4 +22,5 @@ def GetMaxAcceleration(rootdir):
     #print lines
     print '最大减速度:', max(lines)
 GetMaxAcceleration(get_dir+'/acceleration')
+print "\nSUCCESSED"
 #GetMaxAcceleration('test_acceleration')

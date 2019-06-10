@@ -1,11 +1,10 @@
 #/bin/bash
 SCRIPT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-#source ${SCRIPT_ROOT}/../common/log_function.sh
-function get_brake_distance() {
-CARSTATUS_FILE=carstatus1
+
+CARSTATUS_FILE=carstatus
 BRAKE_POSITION=brake_position
 BRAKE_POSITION1=brake_position1
-OBSTACLES_FILE=obstacles1
+OBSTACLES_FILE=obstacles
 OBSTACLES_FILE2=obstacles2
 OBSTACLES_POSITION=obstacles_position
 OBSTACLES_POSITION1=obstacles_position1
@@ -15,18 +14,16 @@ cyber_channel echo /perception/obstacles > ${SCRIPT_ROOT}/obstacles-static &
 pid2=$!
 if [ ! -s carstatus ]
 then
-    echo "请检查/pnc/carstatus是否有输出"
-    exit 3
+    echo "Error: there is no data in /pnc/carstatus,please check the channel"
+    return $?
 fi
 if [ ! -s obstacles-static ]
 then
-    echo "请检查/erception/obstacles是否有输出"
-    exit 3
+    echo "Error: there is no data in /perception/obstacles,please check the channel"
+    return $?
 fi
 sleep 60
 kill -TERM $pid1 && kill -TERM $pid2
-cp carstatus carstatus1
-cp obstacles obstacles1
 sed -i '/pose {/,+27d' ${CARSTATUS_FILE}
 sed -i '/msf_status {/,+13d' ${CARSTATUS_FILE}
 sed -i '/average_wheel_speed:/,+4d' ${CARSTATUS_FILE}
@@ -53,24 +50,4 @@ sed -i '/--/d' ${OBSTACLES_POSITION}
 sed -i '/position {/d' ${OBSTACLES_POSITION}
 cat ${OBSTACLES_POSITION} | awk -F ":" '{print $2}' | awk '{print $1}' >${OBSTACLES_POSITION1}
 sed -i 'N;N;s/\n/ /g' ${OBSTACLES_POSITION1}
-python get_brake_distance.py  >$0.log &
-pid=$!
-echo "pid=$pid" >$0.pid
-}
-case $1 in
-    start)
-        get_brake_distance
-        ;;
-    stop)
-        source ${SCRIPT_ROOT}/$0.pid
-        kill -TERM ${pid}
-        ;;
-    status)
-        source ${SCRIPT_ROOT}/$0.pid
-        ps -ef | grep $pid | grep -v grep > /dev/null
-        echo $?
-        ;;
-    *)
-        echo "Usage: bash ${BASH_SOURCE[0]} start|stop|status"
-        ;;
-esac
+python get_brake_distance.py

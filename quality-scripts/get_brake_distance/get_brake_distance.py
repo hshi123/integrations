@@ -23,3 +23,4 @@ def GetBrakeDistance(position_file,obstacles_file):
     distance = np.sqrt(np.sum(np.square(vec1-vec2)))
     print "开始刹车距离为:(m)",distance
 GetBrakeDistance('brake_position1', 'obstacles_position1')
+print "\nSUCCESSED"

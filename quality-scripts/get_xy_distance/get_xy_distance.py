@@ -25,4 +25,5 @@ for i in range(num):
 #print l
 print "横向距离x(m):",l[0]
 print "纵向距离y(m):",l[1]
+print "\nSUCCESSED"
 
