@@ -10,19 +10,19 @@ OBSTACLES_POSITION=obstacles_position
 OBSTACLES_POSITION1=obstacles_position1
 cyber_channel echo /pnc/carstatus > ${SCRIPT_ROOT}/carstatus &
 pid1=$!
-cyber_channel echo /perception/obstacles > ${SCRIPT_ROOT}/obstacles-static &
+cyber_channel echo /perception/obstacles > ${SCRIPT_ROOT}/obstacles &
 pid2=$!
+sleep 60
 if [ ! -s carstatus ]
 then
     echo "Error: there is no data in /pnc/carstatus,please check the channel"
     return $?
 fi
-if [ ! -s obstacles-static ]
+if [ ! -s obstacles ]
 then
     echo "Error: there is no data in /perception/obstacles,please check the channel"
     return $?
 fi
-sleep 60
 kill -TERM $pid1 && kill -TERM $pid2
 sed -i '/pose {/,+27d' ${CARSTATUS_FILE}
 sed -i '/msf_status {/,+13d' ${CARSTATUS_FILE}
