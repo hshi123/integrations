@@ -29,6 +29,7 @@ if [ $? -eq 0 ]
 	otaclient -i params-$carid-pioneer\,$params_date
 fi
 
-otaclient -i intensitymap-HaiDianJiaXiao-XiaoYuan-pioneer,1.5.0.4
-otaclient -i hdmap-HaiDianJiaXiao-XiaoYuan-pioneer,1.5.7.3
-
+#otaclient -i intensitymap-HaiDianJiaXiao-XiaoYuan-pioneer,1.5.0.4
+#otaclient -i hdmap-HaiDianJiaXiao-XiaoYuan-pioneer,1.5.7.3
+otaclient -i intensitymap-ChangChunQiMingYuanQu-pioneer,1.5.0.3
+otaclient -i hdmap-ChangChunQiMingYuanQu-pioneer,1.8.1.3

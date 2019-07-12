@@ -1,4 +1,0 @@
-先获取/perception/obstacles,/localization/100hz/localization_pose
-60s后自动停止获取信息，获得两车间的x,y
-计算横向和纵向距
-
